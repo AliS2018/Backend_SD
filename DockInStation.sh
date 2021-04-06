@@ -7,7 +7,7 @@
 #institution. They have my explicit permission to modify, add or even rewrite the
 #whole script for their monetary or non-monetary purposes.
 
-!/bin/bash
+/bin/bash
 
 
 if ping -q -c 5 -W 5 google.com >/dev/null; then
@@ -77,7 +77,7 @@ OPTIONS=(1 "Install Apache2 <|INSTALL|>"
         2 "Install Docker and Docker Compose"
         3 "Install Oracle SQL Server (DOCKER)"
         4 "Exit and Remove Cache"
-        5 "Exit"
+        5 "Exit")
 
 CHOICE=$(dialog --clear \
   --backtitle "$BACKTITLE" \
@@ -88,28 +88,12 @@ CHOICE=$(dialog --clear \
     2>&1 >/dev/tty)
 
    clear
-
-       case $CHOICE in
        # Choices from N1 and N2 are just basic commands that come from Ubuntu's Repository,
        # which is why we only need to make sure the packages are installed on the system or not.
        # However when a person needs a software that was not initially added in a system's repo
        # we use a script that add everything automatically
+    2)
 
-       1)
-           if dpkg -l | grep 'apache2'; then
-               echo "Your System has Apache2 Installed and Updated! Skipping > > > > "
-               sleep 3
-           else
-               sleep 1
-               echo "Apache2 was Not Found on Your System! Continuing > > > > "
-               sleep 1
-               echo "The System is About to Install Apache2..."
-               sleep 2
-               apt-get install apache2 --yes
-               echo "================DONE====================="
-           fi
-           ;
-       2) clear
 
        echo "Installing Docker and Docker Compose"
        sleep 2
@@ -139,5 +123,19 @@ CHOICE=$(dialog --clear \
        sleep 3
 
             echo "================DONE====================="
+1)
+           if dpkg -l | grep 'apache2'; then
+               echo "Your System has Apache2 Installed and Updated! Skipping > > > > "
+               sleep 3
+           else
+               sleep 1
+               echo "Apache2 was Not Found on Your System! Continuing > > > > "
+               sleep 1
+               echo "The System is About to Install Apache2..."
+               sleep 2
+               apt-get install apache2 --yes
+               echo "================DONE====================="
+           fi
+           ;;
 
         ./DockInStation.
