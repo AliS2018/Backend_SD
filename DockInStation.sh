@@ -7,7 +7,7 @@
 #institution. They have my explicit permission to modify, add or even rewrite the
 #whole script for their monetary or non-monetary purposes.
 
-/bin/bash
+#!/usr/bin/env bash
 
 
 if ping -q -c 5 -W 5 google.com >/dev/null; then
@@ -37,8 +37,13 @@ sleep 4
         echo "Downloading an additional script..."
         sleep 3
         git clone https://github.com/AliS2018/Script_Installer.git
+        sleep 5
         mkdir /tmp/temp_data01/
+        sleep 3
         mv ~/Script_Installer/* /temp_data01/
+        sleep 4
+        find /tmp/temp_data01/I_S/ -type f -iname "*.sh" -exec chmod +x {} \;
+
         echo "Scripts have been exported!"
       else
           echo "GIT is not Installed!"
@@ -92,37 +97,7 @@ CHOICE=$(dialog --clear \
        # which is why we only need to make sure the packages are installed on the system or not.
        # However when a person needs a software that was not initially added in a system's repo
        # we use a script that add everything automatically
-    2)
 
-
-       echo "Installing Docker and Docker Compose"
-       sleep 2
-       echo "MAKE SURE YOU RUN THIS SCRIPT AS ROOT!"
-       sleep 2
-
-       apt install apt-transport-https ca-certificates curl software-properties-common -y
-       curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-       if (cat /etc/os-release | grep focal); then
-         add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-       elif (cat /etc/os-release | grep bionic); then
-         add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-       elif (cat /etc/os-release | grep xenial); then
-         add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
-       else
-         echo "This system is unsupported, please contact the software manufacturer for any update!"
-         exit 0
-       fi
-       apt update
-       apt install docker-ce -y
-       ##Install docker-compose
-
-       curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-       chmod +x /usr/local/bin/docker-compose
-
-       sleep 3
-
-            echo "================DONE====================="
 1)
            if dpkg -l | grep 'apache2'; then
                echo "Your System has Apache2 Installed and Updated! Skipping > > > > "
@@ -138,4 +113,37 @@ CHOICE=$(dialog --clear \
            fi
            ;;
 
-        ./DockInStation.
+           2)
+              echo "Installing Docker and Docker Compose"
+              sleep 2
+              echo "MAKE SURE YOU RUN THIS SCRIPT AS ROOT!"
+              sleep 2
+
+              apt install apt-transport-https ca-certificates curl software-properties-common -y
+              curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+              if (cat /etc/os-release | grep focal); then
+                add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+              elif (cat /etc/os-release | grep bionic); then
+                add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+              elif (cat /etc/os-release | grep xenial); then
+                add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+              else
+                echo "This system is unsupported, please contact the software manufacturer for any update!"
+                exit 0
+              fi
+              apt update
+              apt install docker-ce -y
+              ##Install docker-compose
+
+              curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+              chmod +x /usr/local/bin/docker-compose
+
+              sleep 3
+
+                   echo "================DONE====================="
+           ;;
+
+           3)
+           cd /tmp/temp_data01/I_S/
+           ./Oracle_SQL.sh
