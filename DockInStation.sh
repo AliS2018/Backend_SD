@@ -108,7 +108,7 @@ CHOICE=$(dialog --clear \
                apt-get install apache2 --yes
                echo "================DONE====================="
            fi
-           ;;
+           ;
        2) clear
 
        echo "Installing Docker and Docker Compose"
@@ -141,5 +141,3 @@ CHOICE=$(dialog --clear \
             echo "================DONE====================="
 
         ./DockInStation.
-
-        
