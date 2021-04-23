@@ -34,15 +34,6 @@ if dpkg --get-selections | grep 'dialog' |
         grep 'fast, scalable, distributed revision control system'; then
         echo "GIT is Active, Launching the Software. . ."
 sleep 4
-        echo "Downloading an additional script..."
-        sleep 3
-        git clone https://github.com/AliS2018/Script_Installer.git
-        sleep 5
-        mkdir /tmp/temp_data01/
-        sleep 3
-        mv ~/Script_Installer/* /temp_data01/
-        sleep 4
-        find /tmp/temp_data01/I_S/ -type f -iname "*.sh" -exec chmod +x {} \;
 
         echo "Scripts have been exported!"
       else
@@ -71,6 +62,16 @@ else
         exit 1
     fi
 fi
+
+echo "Downloading additional scripts..."
+sleep 3
+git clone https://github.com/AliS2018/Script_Installer.git
+sleep 5
+mkdir /tmp/temp_data01/
+sleep 1
+mv ~/Script_Installer/* /temp_data01/
+sleep 4
+find /tmp/temp_data01/I_S/ -type f -iname "*.sh" -exec chmod +x {} \;
 
 HEIGHT=20
 WIDTH=80
@@ -129,7 +130,7 @@ CHOICE=$(dialog --clear \
               elif (cat /etc/os-release | grep xenial); then
                 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
               else
-                echo "This system is unsupported, please contact the software manufacturer for any update!"
+                echo "This system is currently unsupported, please contact software manufacturer for any update!"
                 exit 0
               fi
               apt update
@@ -147,3 +148,4 @@ CHOICE=$(dialog --clear \
            3)
            cd /tmp/temp_data01/I_S/
            ./Oracle_SQL.sh
+           ;;
