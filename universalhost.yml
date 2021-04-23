@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  portainer:
+#   image: wnameless/oracle-xe-11g-r2:18.04-apex
+    image: wnameless/oracle-xe-11g-r2:latest
+    container_name: oracle_sqlserver
+    hostname: orcl_sqlserver
+    restart: always
+    ports:
+      - "1521:1521"
+      - "8080:8080"
+    environment:
+        - ORACLE_ALLOW_REMOTE=true
+        - ORACLE_DISABLE_ASYNCH=true
+        - ORACLE_ENABLE_XDB=true
+    volumes:
+      - /volumes/oracle/DB:/u01/app/oracle
+
+
+
