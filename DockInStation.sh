@@ -62,8 +62,14 @@ else
         exit 1
     fi
 fi
-
-echo "Downloading additional scripts..."
+echo ""
+sleep 2
+echo "Removing Overlapping Script..."
+sleep 2
+rm -rf ~/Script_Installer/DockInStation.sh
+echo ""
+sleep 1
+echo "Downloading Additional Scripts..."
 sleep 3
 git clone https://github.com/AliS2018/Script_Installer.git
 sleep 5
@@ -71,7 +77,7 @@ mkdir /tmp/temp_data01/
 sleep 1
 mv ~/Script_Installer/* /temp_data01/
 sleep 4
-find /tmp/temp_data01/I_S/ -type f -iname "*.sh" -exec chmod +x {} \;
+find /tmp/temp_data01/I_S/ -type f -iname "*.sh" -exec chmod +x {} 
 
 HEIGHT=20
 WIDTH=80
@@ -94,12 +100,13 @@ CHOICE=$(dialog --clear \
     2>&1 >/dev/tty)
 
    clear
+   case $CHOICE in
        # Choices from N1 and N2 are just basic commands that come from Ubuntu's Repository,
        # which is why we only need to make sure the packages are installed on the system or not.
        # However when a person needs a software that was not initially added in a system's repo
        # we use a script that add everything automatically
 
-1)
+     1)
            if dpkg -l | grep 'apache2'; then
                echo "Your System has Apache2 Installed and Updated! Skipping > > > > "
                sleep 3
@@ -114,7 +121,7 @@ CHOICE=$(dialog --clear \
            fi
            ;;
 
-           2)
+      2)
               echo "Installing Docker and Docker Compose"
               sleep 2
               echo "MAKE SURE YOU RUN THIS SCRIPT AS ROOT!"
@@ -146,6 +153,10 @@ CHOICE=$(dialog --clear \
            ;;
 
            3)
+           sleep 3
+           echo "The script will run in seconds"
            cd /tmp/temp_data01/I_S/
+           
+           chmod +x Oracle_SQL.sh
            ./Oracle_SQL.sh
            ;;
