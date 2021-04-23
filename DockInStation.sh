@@ -74,7 +74,8 @@ sleep 1
 
 
 echo "Downloading Additional Scripts..."
-if [-d /tmp/temp_data01] then;
+if [-d /tmp/temp_data01];
+then
 echo "Directory Exists..."
 sleep .3
 echo "Cleaning Up..."
@@ -88,7 +89,6 @@ sleep 1
 mv ~/Script_Installer/* /tmp/temp_data01/
 sleep 2
 rm -rf ~/Script_Installer
-
 echo ""
 else 
 sleep 1
