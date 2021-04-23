@@ -76,34 +76,35 @@ sleep 1
 echo "Downloading Additional Scripts..."
 if [-d /tmp/temp_data01];
 then
-echo "Directory Exists..."
-sleep .3
-echo "Cleaning Up..."
-rm -rf /tmp/temp_data01
-echo "Rebuilding datastructure. . ."
-sleep 3
-git clone https://github.com/AliS2018/Script_Installer.git
-sleep 5
-mkdir /tmp/temp_data01/
-sleep 1
-mv ~/Script_Installer/* /tmp/temp_data01/
-sleep 2
-rm -rf ~/Script_Installer
-echo ""
+    echo "Directory Exists..."
+    sleep .3
+    echo "Cleaning Up..."
+  rm -rf /tmp/temp_data01
+    echo "Rebuilding datastructure. . ."
+    sleep 3
+  git clone https://github.com/AliS2018/Script_Installer.git
+    sleep 5
+  mkdir /tmp/temp_data01/
+    sleep 1
+  mv ~/Script_Installer/* /tmp/temp_data01/
+    sleep 2
+  rm -rf ~/Script_Installer
+    echo ""
 else 
-sleep 1
-echo "Unknown Error, wrapping up..."
-rm -rf /tmp/temp_data01
-rm -rf ~/Script_Installer
+    sleep 1
+    echo "Unknown Error, wrapping up..."
+  rm -rf /tmp/temp_data01
+  rm -rf ~/Script_Installer
 fi
-
 
 HEIGHT=20
 WIDTH=80
 CHOICE_HEIGHT=5
 BACKTITLE="Student Installer Script (EDITABLE)"
 TITLE="Install Useful Software and Packages on Your Linux Operating System"
+
 MENU="Choose one of the following options:"
+
 OPTIONS=(1 "Install Apache2 <|INSTALL|>"
         2 "Install Docker and Docker Compose"
         3 "Install Oracle SQL Server (DOCKER)"
@@ -111,14 +112,13 @@ OPTIONS=(1 "Install Apache2 <|INSTALL|>"
         5 "Exit")
 
 CHOICE=$(dialog --clear \
-  --backtitle "$BACKTITLE" \
-  --title "$TITLE" \
-  --menu "$MENU" \
-     $HEIGHT $WIDTH $CHOICE_HEIGHT \
-     "${OPTIONS[@]}" \
-    2>&1 >/dev/tty)
-
-   clear
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+clear
    case $CHOICE in
        # Choices from N1 and N2 are just basic commands that come from Ubuntu's Repository,
        # which is why we only need to make sure the packages are installed on the system or not.
@@ -150,11 +150,11 @@ CHOICE=$(dialog --clear \
               curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
               if (cat /etc/os-release | grep focal)
-              then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+                then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
               elif (cat /etc/os-release | grep bionic) 
-              then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+                then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
               elif (cat /etc/os-release | grep xenial)
-              then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+                then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
               else
                 echo "This system is currently unsupported, please contact software manufacturer for any update!"
                 exit 0
@@ -169,12 +169,20 @@ CHOICE=$(dialog --clear \
               sleep 3
                    echo "================DONE====================="
            ;;
-
-           3)
-           sleep 3
+      3)
+              sleep 3
            echo "The script will run in seconds"
            cd /tmp/temp_data01/I_S/
            
            chmod +x Oracle_SQL.sh
            ./Oracle_SQL.sh
            ;;
+      4)
+        echo "REMOVING TEMPORARY DATA"
+        rm -rf /tmp/temp_data01
+        exit 0
+      ;;
+      5)
+      exit 0
+      ;;
+esac
