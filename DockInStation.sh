@@ -90,6 +90,25 @@ then
     sleep 2
   rm -rf ~/Script_Installer
     echo ""
+  elif [! -d "/tmp/temp_data01"];
+  then 
+    echo "No datastructure found..."
+    sleep 1
+    echo "Generating new datastructure..."
+    touch DIS.log 
+    echo "temporary files:" >> DIS.log
+    echo "I_S" >> DIS.log
+    echo "README" >> DIS.log
+    echo "DockInStation" >> DIS.log
+    sleep 2
+    echo "Creating folders. . . "
+    mkdir /tmp/temp_data01
+    git clone https://github.com/AliS2018/Script_Installer.git
+    mv ~/Script_Installer/* /tmp/temp_data01/
+    rm -rf ~/Script_Installer
+    echo "DONE"
+    sleep 2
+    echo " "
 else 
     sleep 1
     echo "Unknown Error, wrapping up..."
