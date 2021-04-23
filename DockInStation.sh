@@ -61,6 +61,7 @@ else
         echo "This script has found some errors, correct them and run this script again"
         exit 1
     fi
+
 fi
 echo ""
 sleep 2
@@ -70,6 +71,10 @@ rm -rf ~/Script_Installer/DockInStation.sh
 echo ""
 sleep 1
 echo "Downloading Additional Scripts..."
+if [-d /tmp/temp_data01] then;
+echo "Directory Exists..."
+sleep .3
+echo "Cleaning Up..."
 sleep 3
 git clone https://github.com/AliS2018/Script_Installer.git
 sleep 5
@@ -77,7 +82,13 @@ mkdir /tmp/temp_data01/
 sleep 1
 mv ~/Script_Installer/* /tmp/temp_data01/
 sleep 4
-find /tmp/temp_data01/I_S/ -type f -iname "*.sh" -exec chmod +x {} 
+else 
+sleep 1
+echo "Unknown Error, wrapping up..."
+rm -rf /tmp/temp_data01
+rm -rf ~/Script_Installer
+fi
+
 
 HEIGHT=20
 WIDTH=80
@@ -132,9 +143,9 @@ CHOICE=$(dialog --clear \
 
               if (cat /etc/os-release | grep focal); then
                 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-              elif (cat /etc/os-release | grep bionic); then
+              elif (cat /etc/os-release | grep bionic)
                 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-              elif (cat /etc/os-release | grep xenial); then
+              elif (cat /etc/os-release | grep xenial)
                 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
               else
                 echo "This system is currently unsupported, please contact software manufacturer for any update!"
@@ -148,7 +159,6 @@ CHOICE=$(dialog --clear \
               chmod +x /usr/local/bin/docker-compose
 
               sleep 3
-
                    echo "================DONE====================="
            ;;
 
