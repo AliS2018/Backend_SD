@@ -75,7 +75,7 @@ git clone https://github.com/AliS2018/Script_Installer.git
 sleep 5
 mkdir /tmp/temp_data01/
 sleep 1
-mv ~/Script_Installer/* /temp_data01/
+mv ~/Script_Installer/* /tmp/temp_data01/
 sleep 4
 find /tmp/temp_data01/I_S/ -type f -iname "*.sh" -exec chmod +x {} 
 
