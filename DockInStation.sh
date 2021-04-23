@@ -63,6 +63,7 @@ else
     fi
 
 fi
+
 echo ""
 sleep 2
 echo "Removing Overlapping Script..."
@@ -70,18 +71,25 @@ sleep 2
 rm -rf ~/Script_Installer/DockInStation.sh
 echo ""
 sleep 1
+
+
 echo "Downloading Additional Scripts..."
 if [-d /tmp/temp_data01] then;
 echo "Directory Exists..."
 sleep .3
 echo "Cleaning Up..."
+rm -rf /tmp/temp_data01
+echo "Rebuilding datastructure. . ."
 sleep 3
 git clone https://github.com/AliS2018/Script_Installer.git
 sleep 5
 mkdir /tmp/temp_data01/
 sleep 1
 mv ~/Script_Installer/* /tmp/temp_data01/
-sleep 4
+sleep 2
+rm -rf ~/Script_Installer
+
+echo ""
 else 
 sleep 1
 echo "Unknown Error, wrapping up..."
@@ -141,12 +149,12 @@ CHOICE=$(dialog --clear \
               apt install apt-transport-https ca-certificates curl software-properties-common -y
               curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-              if (cat /etc/os-release | grep focal); then
-                add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-              elif (cat /etc/os-release | grep bionic)
-                add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+              if (cat /etc/os-release | grep focal)
+              then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+              elif (cat /etc/os-release | grep bionic) 
+              then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
               elif (cat /etc/os-release | grep xenial)
-                add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+              then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
               else
                 echo "This system is currently unsupported, please contact software manufacturer for any update!"
                 exit 0
