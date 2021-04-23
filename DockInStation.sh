@@ -74,7 +74,7 @@ sleep 1
 
 
 echo "Downloading Additional Scripts..."
-if [-d /tmp/temp_data01];
+if [ -d "/tmp/temp_data01" ]
 then
     echo "Directory Exists..."
     sleep .3
@@ -90,7 +90,7 @@ then
     sleep 2
   rm -rf ~/Script_Installer
     echo ""
-  elif [! -d "/tmp/temp_data01"];
+  elif [ ! -d "/tmp/temp_data01"]
   then 
     echo "No datastructure found..."
     sleep 1
@@ -106,6 +106,7 @@ then
     git clone https://github.com/AliS2018/Script_Installer.git
     mv ~/Script_Installer/* /tmp/temp_data01/
     rm -rf ~/Script_Installer
+    chmod -R +x /tmp/temp_data01/I_S/*
     echo "DONE"
     sleep 2
     echo " "
