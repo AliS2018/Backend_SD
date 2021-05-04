@@ -67,7 +67,7 @@ fi
 echo ""
 sleep 2
 echo "Removing Overlapping Script..."
-	if [ -f -eq "~/Script_Installer/DockInStation.sh" ];
+	if [ -f "~/Script_Installer/DockInStation.sh" ];
 then
 rm -rf ~/Script_Installer/DockInStation.sh
 else
@@ -78,7 +78,7 @@ sleep 1
 
 
 echo "Downloading Additional Scripts..."
-if [ -d -eq "/tmp/temp_data01" ];
+if [ -d "/tmp/temp_data01" ];
 then
     echo "Directory Exists..."
     sleep .3
@@ -94,7 +94,7 @@ then
     sleep 2
   rm -rf ~/Script_Installer
     echo ""
-  elif [ ! -d "/tmp/temp_data01"]
+  elif [ ! -d "/tmp/temp_data01" ];
   then 
     echo "No datastructure found..."
     sleep 1
