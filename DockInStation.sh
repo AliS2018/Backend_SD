@@ -67,7 +67,7 @@ fi
 echo ""
 sleep 2
 echo "Removing Overlapping Script..."
-if [-f  -eq "~/Script_Installer/DockInStation.sh"];
+	if [ -f -eq "~/Script_Installer/DockInStation.sh" ];
 then
 rm -rf ~/Script_Installer/DockInStation.sh
 else
@@ -78,7 +78,7 @@ sleep 1
 
 
 echo "Downloading Additional Scripts..."
-if [ -d -eq "/tmp/temp_data01"];
+if [ -d -eq "/tmp/temp_data01" ];
 then
     echo "Directory Exists..."
     sleep .3
