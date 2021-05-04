@@ -67,14 +67,18 @@ fi
 echo ""
 sleep 2
 echo "Removing Overlapping Script..."
-sleep 2
+if [-f  -eq "~/Script_Installer/DockInStation.sh"];
+then
 rm -rf ~/Script_Installer/DockInStation.sh
-echo ""
+else
+echo "OK"
+fi
+echo " "
 sleep 1
 
 
 echo "Downloading Additional Scripts..."
-if [ -d "/tmp/temp_data01" ]
+if [ -d -eq "/tmp/temp_data01"];
 then
     echo "Directory Exists..."
     sleep .3
@@ -97,9 +101,15 @@ then
     echo "Generating new datastructure..."
     touch DIS.log 
     echo "temporary files:" >> DIS.log
-    echo "I_S" >> DIS.log
-    echo "README" >> DIS.log
-    echo "DockInStation" >> DIS.log
+    echo "1. I_S" >> DIS.log
+    echo "1.1. I_S/MSSQL.sh" >> DIS.log
+    echo "1.2. I_S/Oracle_SQL.sh" >> DIS.log
+    echo "1.3. I_S/Docker-Installer.sh" >> DIS.log
+    echo "1.4.1. I_S/Profiles/universalhost.yml" >> DIS.log
+    echo "1.4.2. I_S/Profiles/sql_server.yml" >> DIS.log
+    echo "2. README" >> DIS.log
+    echo "3. DockInStation.sh" >> DIS.log
+    echo "COMMIT;"
     sleep 2
     echo "Creating folders. . . "
     mkdir /tmp/temp_data01
@@ -139,7 +149,7 @@ CHOICE=$(dialog --clear \
                 $HEIGHT $WIDTH $CHOICE_HEIGHT \
                 "${OPTIONS[@]}" \
                 2>&1 >/dev/tty)
-clear
+
    case $CHOICE in
        # Choices from N1 and N2 are just basic commands that come from Ubuntu's Repository,
        # which is why we only need to make sure the packages are installed on the system or not.
