@@ -10,8 +10,9 @@ services:
     ports:
       - "1433:1433"
     environment:
-        - ACCEPT_EULA: "Y"
-        - SA_PASSWORD: "12345"
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=12345
+        - MSSQL_PID= DEVELOPER
     volumes:
       - /volumes/microsoft/DB:/var/opt/mssql/
 
