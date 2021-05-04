@@ -126,10 +126,11 @@ TITLE="Install Useful Software and Packages on Your Linux Operating System"
 MENU="Choose one of the following options:"
 
 OPTIONS=(1 "Install Apache2 <|INSTALL|>"
-        2 "Install Docker and Docker Compose"
-        3 "Install Oracle SQL Server (DOCKER)"
-        4 "Exit and Remove Cache"
-        5 "Exit")
+        2 "Install Docker and Docker Compose <|INSTALL|>"
+        3 "Install Oracle SQL Server (DOCKER)  <|INSTALL|>"
+        4 "Install Microsoft SQL Server (DOCKER) <|INSTALL|>"
+        5 "Remove Cache"
+        6 "Exit")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -191,18 +192,27 @@ clear
            ;;
       3)
               sleep 3
-           echo "The script will run in seconds"
+            echo "Running the Oracle SQL Server Script. . ."
            cd /tmp/temp_data01/I_S/
-           
            chmod +x Oracle_SQL.sh
            ./Oracle_SQL.sh
            ;;
-      4)
-        echo "REMOVING TEMPORARY DATA"
-        rm -rf /tmp/temp_data01
-        exit 0
+      4) sleep 2
+        echo "Running the MSSQL Server Script. . ."
+        sleep 1
+        cd /tmp/tmp_data01/I_S/
+        chmod +x MSSQL_Server.sh
+        ./MSSQL_Server.sh
       ;;
       5)
+      echo "REMOVING TEMPORARY DATA"
+      rm -rf /tmp/temp_data01
       exit 0
       ;;
+      6) echo "Exitting the Software..."
+      sleep 2
+      clear
+      exit 0
+      
 esac
+
