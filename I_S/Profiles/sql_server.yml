@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  portainer:
+    image: mcr.microsoft.com/mssql/server:latest
+    user: '0:0'
+    container_name: microsoft_sqlserver
+    hostname: mrsft_sqlsrv
+    restart: always
+    ports:
+      - "1433:1433"
+    environment:
+        - ACCEPT_EULA: "Y"
+        - SA_PASSWORD: "12345"
+    volumes:
+      - /volumes/microsoft/DB:/var/opt/mssql/
+

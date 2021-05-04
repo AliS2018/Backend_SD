@@ -101,13 +101,12 @@ echo "..."
 sleep .1
 echo "...."
 sleep .1
-git clone 
 cd /tmp/temp_data01/Profiles
-docker-compose -f universalhost.yml up -d
+docker-compose -f /tmp/temp_date01/Profiles/sql_server.yml up -d
 sleep .5
-docker logs oracle_sqlserver
+docker logs microsoft_sqlserver
 sleep 5
-docker exec oracle_sqlserver /bin/bash -c "ls -la /u01/app/oracle"
+docker exec  microsoft_sqlserver /bin/bash -c "ls -la /var/opt/mssql/"
 echo "********************                  ====DONE====                         ***********************************"
 sleep .5
 echo ""
@@ -126,22 +125,24 @@ echo "                                  CONFIGURATION DATA SUMMARY              
 echo ""
 echo "Loading Containers..."
 sleep 2
-docker ps -a | grep oracle_sqlserver
-echo "This is the container name you will be using on your SQL Developer"
-sleep 2
+docker ps -a | grep microsoft_sqlserver
+
 echo "Loading the Server Main IP address..."
 hostname -I | cut -f1 -d' '
 sleep .5
+echo "To access the database please use the shown IP address and an available port on :1433"
 echo "Loading Users..."
 sleep .5
 echo "=================================="
 sleep .2
-echo "=========    User: SYS    ========"
+echo "=========    User: SA    ========"
 sleep .3
-echo "========  Password: oracle ======="
+echo "========  Password: 12345 ======="
 sleep .1
 echo "=================================="
 sleep .2
+echo "====== WARNING! CHANGE THE SA user's PASSWORD TO PREVENT ANY FURTHER ISSUES ======"
+sleep 10
 echo "              DONE                "
 echo ""
 sleep 10
@@ -151,7 +152,7 @@ echo "=====       THE INSTALLATION HAS BEEN SUCCESSFULLY COMPLETED            ==
 sleep .2
 echo "=====                                                                   ======="
 sleep .2
-echo "=========   Thank You for using Oracle SQL Installer Script             ======="
+echo "=========   Thank You for using MSSQL Installer Script                  ======="
 sleep .2
 echo "=====                                                                   ======="
 sleep .2
@@ -159,8 +160,8 @@ echo "======                Copyright 2020 A.Sadykov                          ==
 sleep .2
 echo "==============================================================================="
 
-cd /tmp/temp_data01/
-./DockInStation
+cd ~/
+./DockInStation.sh
 echo "Thanks for using this script, loading the home page..."
 sleep 5
 clear
