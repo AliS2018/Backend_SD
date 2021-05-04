@@ -210,7 +210,7 @@ CHOICE=$(dialog --clear \
       4) sleep 2
         echo "Running the MSSQL Server Script. . ."
         sleep 1
-        cd /tmp/tmp_data01/I_S/
+        cd /tmp/temp_data01/I_S/
         chmod +x MSSQL_Server.sh
         ./MSSQL_Server.sh
       ;;
