@@ -101,8 +101,7 @@ echo "..."
 sleep .1
 echo "...."
 sleep .1
-cd /tmp/temp_data01/Profiles
-docker-compose -f /tmp/temp_data01/Profiles/sql_server.yml up -d
+docker-compose -f /tmp/temp_data01/I_S/Profiles/sql_server.yml up -d
 sleep .5
 docker logs microsoft_sqlserver
 sleep 5
