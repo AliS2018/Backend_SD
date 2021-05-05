@@ -13,5 +13,7 @@ services:
         - SA_PASSWORD=12345
         - MSSQL_PID= DEVELOPER
     volumes:
-      - /volumes/microsoft/DB:/var/opt/mssql/
-
+      - /volumes/microsoft/mssql:/var/opt/mssql/
+      - /volumes/microsoft/backups:/var/opt/mssql/backups
+      - /volumes/microsoft/sqlserver:/var/opt/sqlserver
+      
