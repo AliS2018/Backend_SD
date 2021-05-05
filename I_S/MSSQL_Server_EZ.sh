@@ -70,7 +70,7 @@ echo "DONE"
 
 echo "Setting Up MSSQL..."
 sleep 2
-docker run --name="microsoft_sqlserver" --restart="on-failure" -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=12345' -p 1433:1433 -d  mcr.microsoft.com/mssql/server:2019-CU10-ubuntu-20.04
+docker run --name="microsoft_sqlserver" --restart="on-failure" -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=complexityusers@d11oclok' -p 1433:1433 -d  mcr.microsoft.com/mssql/server:2019-CU10-ubuntu-20.04
 echo "DONE"
 sleep 2
 
@@ -80,13 +80,13 @@ sleep .5
 echo "To access the database please use the shown IP address and an available port on :1433"
 echo "Loading Users..."
 sleep .5
-echo "=================================="
+echo "===================================================="
 sleep .2
-echo "=========    User: SA    ========"
+echo "========= User: SA                          ========"
 sleep .3
-echo "========  Password: 12345 ======="
+echo "========  Password: complexityusers@d11oclok ======="
 sleep .1
-echo "=================================="
+echo "===================================================="
 sleep .2
 echo "====== WARNING! CHANGE THE SA user's PASSWORD TO PREVENT ANY FURTHER ISSUES ======"
 sleep 10
