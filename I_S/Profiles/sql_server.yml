@@ -3,7 +3,6 @@ version: '2'
 services:
   portainer:
     image: mcr.microsoft.com/mssql/server:latest
-    user: '0:0'
     container_name: microsoft_sqlserver
     hostname: mrsft_sqlsrv
     restart: always
