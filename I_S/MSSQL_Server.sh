@@ -61,22 +61,20 @@ sleep 10
 echo ".............................DOCKER HAS BEEN INITIATED......................."
 sleep .1
 echo "************************DOCKER IS ABOUT TO PULL SQL DATA FROM ITS SERVERS*************************************"
-docker run -d --name temp_sql_srv  mcr.microsoft.com/mssql/server
+docker run -d --name temp_sql_srv mcr.microsoft.com/mssql/server:2019-CU10-ubuntu-20.04
 echo "********************                  PULL COMPLETE                        ***********************************"
 sleep 5
 echo ""
 echo "********************              CREATING DIRECTORIES...                  ***********************************"
 sleep .1
 mkdir -p /volumes/microsoft/mssql
-mkdir -p /volumes/microsoft/backups
-mkdir -p /volumes/microsoft/sqlserver
 sleep .1
 echo "********************                     ==DONE==                          ***********************************"
 echo ""
 sleep 2
 echo "********************              SETTING UP A CONTAINER...                ***********************************"
 docker cp temp_sql_srv:/var/opt/mssql/. /volumes/microsoft/mssql
-docker cp temp_sql_srv:/var/opt/sqlserver/. /volumes/microsoft/sqlserver
+
 
 echo "********************                   ===DONE===                          ***********************************"
 echo ""
@@ -90,7 +88,6 @@ echo ""
 sleep 3
 echo "********************              VERIFYING THE SCRIPT...                  ***********************************"
 ls -la /volumes/microsoft/mssql
-ls -la /volumes/microsoft/sqlserver
 sleep .5
     echo "The installation may proceed"
 sleep .5
