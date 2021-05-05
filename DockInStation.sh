@@ -102,11 +102,12 @@ then
     touch DIS.log 
     echo "temporary files:" >> DIS.log
     echo "1. I_S" >> DIS.log
-    echo "1.1. I_S/MSSQL.sh" >> DIS.log
+    echo "1.1. I_S/MSSQL_Server.sh" >> DIS.log
     echo "1.2. I_S/Oracle_SQL.sh" >> DIS.log
     echo "1.3. I_S/Docker-Installer.sh" >> DIS.log
     echo "1.4.1. I_S/Profiles/universalhost.yml" >> DIS.log
     echo "1.4.2. I_S/Profiles/sql_server.yml" >> DIS.log
+    echo "1.5. I_S/MSSQL_Server_EZ.sh" >> DIS.log
     echo "2. README" >> DIS.log
     echo "3. DockInStation.sh" >> DIS.log
     echo "COMMIT;"
@@ -138,9 +139,10 @@ MENU="Choose one of the following options:"
 OPTIONS=(1 "Install Apache2 <|INSTALL|>"
         2 "Install Docker and Docker Compose <|INSTALL|>"
         3 "Install Oracle SQL Server (DOCKER)  <|INSTALL|>"
-        4 "Install Microsoft SQL Server (DOCKER) <|INSTALL|>"
-        5 "Remove Cache"
-        6 "Exit")
+        4 "Install Microsoft SQL Server (DOCKER) <|!ISSUES!|>"
+        5 "Install Microsoft SQL Server (Easy Installation Docker) <|INSTALL|>"
+        6 "Remove Cache"
+        7 "Exit")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -215,11 +217,21 @@ CHOICE=$(dialog --clear \
         ./MSSQL_Server.sh
       ;;
       5)
+      echo "Running the EZ MSSQL Server Script. . ."
+             sleep 1
+             cd /tmp/temp_data01/I_S/
+             chmod +x MSSQL_Server_EZ.sh
+             ./MSSQL_Server_EZ.sh
+           ;;
+      
+      6)
       echo "REMOVING TEMPORARY DATA"
       rm -rf /tmp/temp_data01
       exit 0
       ;;
-      6) echo "Exitting the Software..."
+      
+      
+      7) echo "Exitting the Software..."
       sleep 2
       clear
       exit 0
