@@ -70,7 +70,7 @@ echo "DONE"
 
 echo "Setting Up MSSQL..."
 sleep 2
-docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=12345' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+docker run --name="microsoft_sqlserver" --restart="always" -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=12345' -p 1433:1433 -d  mcr.microsoft.com/mssql/server:2019-CU10-ubuntu-20.04
 echo "DONE"
 sleep 2
 
