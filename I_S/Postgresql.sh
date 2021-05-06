@@ -67,7 +67,7 @@ pg_ctlcluster 12 main start
  
 echo "Enabling Connectivity..."
 sleep 5
-sed -i -r 's/listen_addresses = 'localhost'/listen_addresses = '*'/' /etc/postresql/12/main/postgresql.conf
+sed -i -r 's/listen_addresses = 'localhost'/listen_addresses = '*'/' /etc/postgresql/12/main/postgresql.conf
 touch pg_hba.conf
 echo "# TYPE DATABASE USER CIDR-ADDRESS  METHOD" >> pg_hba.conf
 echo "host  all  all 0.0.0.0/0 md5" >> pg_hba.conf
@@ -75,7 +75,7 @@ sleep 1
 echo "Setting up postgres user..."
 sudo -u postgres psql --command 'password postgres'
 sleep 1
-ECHO "DONE"
+echo "DONE"
 
 echo "Loading the Server Main IP address..."
 hostname -I | cut -f1 -d' '
