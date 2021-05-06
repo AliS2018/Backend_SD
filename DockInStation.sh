@@ -13,12 +13,13 @@
 if ping -q -c 5 -W 5 google.com >/dev/null; then
     echo "You have a Stable Internet Connection, The Installer may Proceed..."
 else
+    clear
     echo "You don't have a Stable Internet Connection, Please Fix any
             Inconsistencies regarding this Problem and Relaunch this Script
             Again. Thanks!"
-    clear
+   
     echo "Exit, Error 1"
-    exit 1
+   exit 1
 fi
 
 # a few packages are needed to run this software, this script Automatically
@@ -124,6 +125,7 @@ then
 else 
     sleep 1
     echo "Unknown Error, wrapping up..."
+    sleep 5
   rm -rf /tmp/temp_data01
   rm -rf ~/Script_Installer
 fi
@@ -141,8 +143,9 @@ OPTIONS=(1 "Install Apache2 <|INSTALL|>"
         3 "Install Oracle SQL Server (DOCKER)  <|INSTALL|>"
         4 "Install Microsoft SQL Server (DOCKER) <|!ISSUES!|>"
         5 "Install Microsoft SQL Server (Easy Installation Docker) <|INSTALL|>"
-        6 "Remove Cache"
-        7 "Exit")
+        6 "Install PostgreSQL Server <|INSTALL|>"
+        7 "Remove Cache"
+        8 "Exit")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -223,15 +226,20 @@ CHOICE=$(dialog --clear \
              chmod +x MSSQL_Server_EZ.sh
              ./MSSQL_Server_EZ.sh
            ;;
-      
       6)
+      echo "Running Postgres Installer Script. . ."
+        sleep 1
+        cd /tmp/temp_data01/I_S/
+        chmod +x Postgresql.sh
+        ./Postgresql.sh
+      ;;
+      7)
       echo "REMOVING TEMPORARY DATA"
       rm -rf /tmp/temp_data01
       exit 0
       ;;
       
-      
-      7) echo "Exitting the Software..."
+      8) echo "Exitting the Software..."
       sleep 2
       clear
       exit 0
