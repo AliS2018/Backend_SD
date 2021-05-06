@@ -55,7 +55,7 @@ echo ""
 
 echo "                            INSTALLATION HAS BEGUN...                              "
 
-apt install postgresql postgresql-contirb -y
+apt install postgresql postgresql-contrib -y
 
 echo "DONE..."
 sleep 2
