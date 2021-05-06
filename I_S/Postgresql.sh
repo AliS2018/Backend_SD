@@ -60,6 +60,11 @@ apt-get install postgresql postgresql-contirb -y
 echo "DONE..."
 sleep 2
 cd /etc/postgresql/12/main/
+
+echo "Starting Services. . ."
+
+pg_ctlcluster 12 main start
+ 
 echo "Enabling Connectivity..."
 sleep 5
 sed -i -r 's/listen_addresses = 'localhost'/listen_addresses = '*'/' /etc/postresql/12/main/postgresql.conf
