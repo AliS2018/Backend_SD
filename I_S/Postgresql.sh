@@ -62,7 +62,6 @@ sleep 2
 cd /etc/postgresql/12/main/
 echo "Enabling Connectivity..."
 sleep 5
-echo "" >>
 sed -i -r 's/listen_addresses = 'localhost'/listen_addresses = '*'/' /etc/postresql/12/main/postgresql.conf
 touch pg_hba.conf
 echo "# TYPE DATABASE USER CIDR-ADDRESS  METHOD" >> pg_hba.conf
