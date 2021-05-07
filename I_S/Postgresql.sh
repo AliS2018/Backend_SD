@@ -5,7 +5,7 @@
 #Current Script version 1.4.12B Improvements Pending <-no commercial use->
 # RUN THIS SCRIPT AS ROOT!
 MAIN="#listen_addresses = 'localhost'        # what IP address(es) to listen on;"
-MODIFIED="#listen_addresses = '*'        # what IP address(es) to listen on;"
+MODIFIED="listen_addresses = '*'        # what IP address(es) to listen on;"
 
 echo "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 sleep .1
@@ -69,7 +69,7 @@ pg_ctlcluster 12 main start
  
 echo "Enabling Connectivity..."
 sleep 5
-sed -i "s/$MAIN/$MODIFIED" /etc/postgresql/12/main/postgresql.conf
+sed -i "s/$MAIN/$MODIFIED/g" /etc/postgresql/12/main/postgresql.conf
 touch pg_hba.conf
 echo "# TYPE DATABASE USER CIDR-ADDRESS  METHOD" >> pg_hba.conf
 echo "host  all  all 0.0.0.0/0 md5" >> pg_hba.conf
@@ -77,11 +77,24 @@ sleep 1
 
 echo "Setting up postgres user..."
 echo ""
-echo "YOU ARE GOING TO BE ASKED TO TYPE IN YOUR PASSWORD!"
+echo "YOU ARE GOING TO BE ASKED TO SET YOUR DATABASE PASSWORD!"
 sleep 5
 sudo -u postgres psql --command '\password postgres'
 sleep 1
 echo "DONE"
+echo ""
+echo ""
+echo "RESTARTING POSTGRESQL SERVER, PLEASE WAIT..."
+sleep 5
+systemctl restart postgresql
+service postgresql restart
+echo "DONE. . . "
+clear
+echo "LOADING INFORMATION. . ."
+echo ""
+echo ""
+echo ""
+sleep 3
 
 echo "Loading the Server Main IP address..."
 hostname -I | cut -f1 -d' '
