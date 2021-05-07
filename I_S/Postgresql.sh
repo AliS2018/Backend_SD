@@ -4,8 +4,8 @@
 #If you wish to improve the script by adding logical parts and statements, please send your copy to the following email --> maintenanceos.mos@gmail.com Thank You!
 #Current Script version 1.4.12B Improvements Pending <-no commercial use->
 # RUN THIS SCRIPT AS ROOT!
-MAIN = "#listen_addresses = 'localhost'        # what IP address(es) to listen on;"
-MODIFIED = "#listen_addresses = '*'        # what IP address(es) to listen on;"
+MAIN="#listen_addresses = 'localhost'        # what IP address(es) to listen on;"
+MODIFIED="#listen_addresses = '*'        # what IP address(es) to listen on;"
 
 echo "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"
 sleep .1
