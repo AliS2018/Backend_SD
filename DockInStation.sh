@@ -17,7 +17,7 @@ else
     echo "You don't have a Stable Internet Connection, Please Fix any
             Inconsistencies regarding this Problem and Relaunch this Script
             Again. Thanks!"
-   
+
     echo "Exit, Error 1"
    exit 1
 fi
@@ -70,13 +70,12 @@ sleep 2
 echo "Removing Overlapping Script..."
 	if [ -f "~/Script_Installer/DockInStation.sh" ];
 then
-rm -rf ~/Script_Installer/DockInStation.sh
+rm ~/Script_Installer/DockInStation.sh
 else
 echo "OK"
 fi
 echo " "
 sleep 1
-
 
 echo "Downloading Additional Scripts..."
 if [ -d "/tmp/temp_data01" ];
@@ -93,22 +92,32 @@ then
     sleep 1
   mv ~/Script_Installer/* /tmp/temp_data01/
   sleep 1
+
   echo "Updating the Main Script. . ."
-  mv ~/Script_Installer/DockInStation.sh ~/
+  if [ -f "/tmp/temp_data01/DockInStation.sh"]; then
+    sleep 1
+    echo "File is Present, Moving it to the Home Directory..."
+    sleep 3
+  mv /tmp/temp_data01/DockInStation.sh ~/
   chmod +x DockInStation.sh
+  mv DockInstation.sh DIStation_NEW.sh
   sleep 2
-  echo "Removing Useless Directory..."
-  rm -rf ~/Script_Installer
-  echo "Reloading the Script..."
-  cd ~/
-  ./DockInStation.sh
+else
+  echo "File is not present in the directory"
+  sleep 1
+  echo "Assuming the file has been moved for other purposes"
+  sleep 1
+  echo "Check the script by the following name: DIStation_NEW.sh; and run that script again!"
+  sleep .1 
+  exit 0
+fi
     echo ""
   elif [ ! -d "/tmp/temp_data01" ];
-  then 
+  then
     echo "No datastructure found..."
     sleep 1
     echo "Generating new datastructure..."
-    touch DIS.log 
+    touch DIS.log
     echo "temporary files:" >> DIS.log
     echo "1. I_S" >> DIS.log
     echo "1.1. I_S/MSSQL_Server.sh" >> DIS.log
@@ -132,7 +141,7 @@ then
     echo "DONE"
     sleep 2
     echo " "
-else 
+else
     sleep 1
     echo "Unknown Error, wrapping up..."
     sleep 5
@@ -154,8 +163,9 @@ OPTIONS=(1 "Install Apache2 <|INSTALL|>"
         4 "Install Microsoft SQL Server (DOCKER) <|!ISSUES!|>"
         5 "Install Microsoft SQL Server (Easy Installation Docker) <|INSTALL|>"
         6 "Install PostgreSQL Server <|INSTALL|>"
-        7 "Remove Cache"
-        8 "Exit")
+        7 "Download Additional Files (Java, Shell, SQL) <|ENCRYPTION ENABLED|>"
+        8 "Remove Cache"
+        9 "Exit")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -198,7 +208,7 @@ CHOICE=$(dialog --clear \
               if (cat /etc/os-release | grep focal)
                 then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
                 echo "Your system is Ubuntu Server 20.04 Focal Fossa, this is a logging system" >> DIS.log
-              elif (cat /etc/os-release | grep bionic) 
+              elif (cat /etc/os-release | grep bionic)
                 then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
                 echo "Your system is Ubuntu Server 18.04 Bionic Beaver, this is a logging system" >> DIS.log
               elif (cat /etc/os-release | grep xenial)
@@ -247,16 +257,21 @@ CHOICE=$(dialog --clear \
         ./Postgresql.sh
       ;;
       7)
+      echo "Locating additional files..."
+      sleep 3
+      cd /tmp/temp_data01/I_S/Encrypted\ Files/
+      unzip
+      ;;
+      8)
       echo "REMOVING TEMPORARY DATA. . ."
       sleep 3
       rm -rf /tmp/temp_data01
       exit 0
       ;;
-      
-      8) echo "Exitting the Software. . ."
+
+      9) echo "Exitting the Software. . ."
       sleep 2
       clear
       exit 0
-      
-esac
 
+esac
