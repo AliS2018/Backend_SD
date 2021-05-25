@@ -92,25 +92,27 @@ then
     sleep 1
   mv ~/Script_Installer/* /tmp/temp_data01/
   sleep 1
-
-  echo "Updating the Main Script. . ."
-  if [ -f "/tmp/temp_data01/DockInStation.sh"]; then
-    sleep 1
-    echo "File is Present, Moving it to the Home Directory..."
-    sleep 3
-  mv /tmp/temp_data01/DockInStation.sh ~/
-  chmod +x DockInStation.sh
-  mv DockInstation.sh DIStation_NEW.sh
+  echo "Removing Extra Folders..."
   sleep 2
-else
-  echo "File is not present in the directory"
-  sleep 1
-  echo "Assuming the file has been moved for other purposes"
-  sleep 1
-  echo "Check the script by the following name: DIStation_NEW.sh; and run that script again!"
-  sleep .1 
-  exit 0
-fi
+  rm -rf ~/Script_Installer
+ # echo "Updating the Main Script. . ."
+ # if [ -f "/tmp/temp_data01/DockInStation.sh"]; then
+ #   sleep 1
+ #   echo "File is Present, Moving it to the Home Directory..."
+ #   sleep 3
+ # mv /tmp/temp_data01/DockInStation.sh ~/
+ # chmod +x DockInStation.sh
+ # mv DockInstation.sh DIStation_NEW.sh
+ # sleep 2
+#else
+ # echo "File is not present in the directory"
+ # sleep 1
+ # echo "Assuming the file has been moved for other purposes"
+ # sleep 1
+ # echo "Check the script by the following name: DIStation_NEW.sh; and run that script again!"
+ # sleep .1
+ # exit 0
+ # fi
     echo ""
   elif [ ! -d "/tmp/temp_data01" ];
   then
@@ -257,10 +259,14 @@ CHOICE=$(dialog --clear \
         ./Postgresql.sh
       ;;
       7)
-      echo "Locating additional files..."
+      echo "Locating Additional files..."
       sleep 3
       cd /tmp/temp_data01/I_S/Encrypted\ Files/
-      unzip
+      sleep 2
+      echo "Unzipping Files..."
+      sleep 2
+      unzip -q ~/encrpted.zip -d ~/
+      
       ;;
       8)
       echo "REMOVING TEMPORARY DATA. . ."
