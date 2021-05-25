@@ -59,7 +59,7 @@ else
         sleep 2
         echo "Software is on the system! Verification is completed."
     else
-        echo "This script has found some errors, correct them and run this script again"
+        echo "This script has encountered some errors, correct them and run this script again"
         exit 1
     fi
 
@@ -92,8 +92,16 @@ then
   mkdir /tmp/temp_data01/
     sleep 1
   mv ~/Script_Installer/* /tmp/temp_data01/
-    sleep 2
+  sleep 1
+  echo "Updating the Main Script. . ."
+  mv ~/Script_Installer/DockInStation.sh ~/
+  chmod +x DockInStation.sh
+  sleep 2
+  echo "Removing Useless Directory..."
   rm -rf ~/Script_Installer
+  echo "Reloading the Script..."
+  cd ~/
+  ./DockInStation.sh
     echo ""
   elif [ ! -d "/tmp/temp_data01" ];
   then 
@@ -106,12 +114,14 @@ then
     echo "1.1. I_S/MSSQL_Server.sh" >> DIS.log
     echo "1.2. I_S/Oracle_SQL.sh" >> DIS.log
     echo "1.3. I_S/Docker-Installer.sh" >> DIS.log
+    echo "1.4. I_S/Microsoft_SQLServer_EZ.sh" >> DIS.log
     echo "1.4.1. I_S/Profiles/universalhost.yml" >> DIS.log
     echo "1.4.2. I_S/Profiles/sql_server.yml" >> DIS.log
     echo "1.5. I_S/MSSQL_Server_EZ.sh" >> DIS.log
+    echo "1.6. I_S/Postgresql.sh" >> DIS.log
     echo "2. README" >> DIS.log
     echo "3. DockInStation.sh" >> DIS.log
-    echo "COMMIT;"
+    echo "COMMIT;" >> DIS.log
     sleep 2
     echo "Creating folders. . . "
     mkdir /tmp/temp_data01
@@ -187,12 +197,15 @@ CHOICE=$(dialog --clear \
 
               if (cat /etc/os-release | grep focal)
                 then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+                echo "Your system is Ubuntu Server 20.04 Focal Fossa, this is a logging system" >> DIS.log
               elif (cat /etc/os-release | grep bionic) 
                 then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+                echo "Your system is Ubuntu Server 18.04 Bionic Beaver, this is a logging system" >> DIS.log
               elif (cat /etc/os-release | grep xenial)
                 then  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+                echo "Your system is Ubuntu Server 16.04 Xenial, this is a logging system" >> DIS.log
               else
-                echo "This system is currently unsupported, please contact software manufacturer for any update!"
+                echo "[ERROR 10] - This system is currently unsupported, please contact software manufacturer for any update!" >> DIS.log
                 exit 0
               fi
               apt update
@@ -234,12 +247,13 @@ CHOICE=$(dialog --clear \
         ./Postgresql.sh
       ;;
       7)
-      echo "REMOVING TEMPORARY DATA"
+      echo "REMOVING TEMPORARY DATA. . ."
+      sleep 3
       rm -rf /tmp/temp_data01
       exit 0
       ;;
       
-      8) echo "Exitting the Software..."
+      8) echo "Exitting the Software. . ."
       sleep 2
       clear
       exit 0
