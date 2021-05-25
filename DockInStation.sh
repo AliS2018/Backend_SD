@@ -44,6 +44,7 @@ sleep 4
           sleep 3
           apt-get install --yes git
           echo "GIT has been Successfully Installed, Continuing . . . "
+        
     fi
 else
     echo "Installing the Package..."
@@ -55,6 +56,14 @@ else
     echo ""
     echo "Verifying the package"
 
+    if dpkg -l | grep unzip; then
+    echo "Package is available on this system, continuing..."
+    else
+    echo "Package is unavailable on this system, Installation will begin shortly..."
+    apt install unzip -y
+    fi
+
+    
     if dpkg -l | grep dialog; then
         sleep 2
         echo "Software is on the system! Verification is completed."
@@ -265,7 +274,7 @@ CHOICE=$(dialog --clear \
       sleep 2
       echo "Unzipping Files..."
       sleep 2
-      unzip -q ~/encrpted.zip -d ~/
+      unzip -q encrypted.zip -d ~/
       
       ;;
       8)
