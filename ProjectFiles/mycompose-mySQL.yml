@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  mysql:
+    image: mysql:5.7.28
+    container_name: db_mysql
+    hostname: db_mysqlserver
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=prestashop
+      - MYSQL_DATABASE=presto
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=12345aA.
+    volumes:
+      - /Volumes/PRESTADB/DB:/var/lib/mysql
+      - /Volumes/PRESTADB/init_DB.sql:/docker-entrypoint-initdb.d
+      - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    network_mode: "host"
+
+
+
