@@ -20,6 +20,7 @@ echo " << DONE >> "
 echo " Enabling Containers... "
 cd ~/
 docker-compose -f prestashop.yml up -d
+docker-compose -f database.yml up -d
 sleep 5
 echo "Container: prestashop_b1c0sl enabled... "
 sleep .1
