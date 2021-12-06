@@ -15,18 +15,18 @@ services:
       - PS_INSTALL_AUTO=0
     volumes:
       - /Volumes/PRESTADB/WFS/:/var/www/html
+    network_mode: "host"
+    
   mysql:
     image: mysql:5.7.28
-    container_name: db_mysql_all
+    container_name: db_mysql
     hostname: db_mysqlserver
     restart: always
-    #networks:
-    #  - prestashop_network
     ports:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD= utildb2022
-      - MYSQL_DATABASE= prestashop
+      - MYSQL_DATABASE= db_prestashop_main
       - MYSQL_USER= prestoadmin
       - MYSQL_PASSWORD= 12345aA
     volumes:
@@ -34,6 +34,7 @@ services:
       - /Volumes/PRESTADB/init_DB.sql:/docker-entrypoint-initdb.d
       - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
+    network_mode: "host"
 
 #networks:
 #  prestashop_network:
