@@ -20,14 +20,17 @@ echo " << DONE >> "
 echo " Enabling Containers... "
 cd ~/
 docker-compose -f prestashop.yml up -d
-docker-compose -f database.yml up -d
 sleep 5
 echo "Container: prestashop_b1c0sl enabled... "
 sleep .1
 echo "Proceed with Internal Setup at 127.0.0.1:8080"
+echo "Database IP >> 127.0.0.1:3306"
 sleep .2
-echo ">> DB name: prestashop || >> DB user: prestoadmin || >> DB Pass: 12345aA."
-sleep 10
+echo "To attach any existing database to your PrestaShop, follow the attributes >>> "
+echo ">> DB name: db_presta_main || >> DB user: prestoadmin || >> DB Pass: 12345aA"
+sleep 5
+echo "Run remove_cache.sh to enable administrative capabilities for your site"
+sleep 6
       echo "Setup Complete!"
       sleep 2
       echo "Exitting..." 

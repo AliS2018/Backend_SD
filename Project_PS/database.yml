@@ -1,19 +1,6 @@
 version: '2'
 
 services:
-  prestashop:
-    image: prestashop/prestashop
-    container_name: prestashop_b1c0sl
-    hostname: pstashop
-    restart: always
-    ports:
-      - 8080:80
-    environment:
-      - PS_DEV_MODE=false 
-      - PS_INSTALL_AUTO=0
-    volumes:
-      - /Volumes/PRESTADB/WFS/:/var/www/html
-    network_mode: "host"
   mysql:
     image: mysql:5.7.36
     container_name: db_mysql_sdb
