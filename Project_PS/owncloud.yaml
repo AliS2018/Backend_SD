@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  owncloud:
+    image: owncloud/server:latest
+    container_name: OC_SRV_INTRANET
+    hostname: OCSRVINT
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - /Volumes/OC_UDATA:/mnt/data
+      - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    network_mode: "host"
+
+
+

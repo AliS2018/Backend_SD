@@ -1,0 +1,48 @@
+version: '3.2'
+
+services:
+  postgresql_db:
+    image: postgre:latest
+    container_name: PostSQL
+    hostname: nextsql
+    restart: always
+    ports: 
+      - "5430:5432"
+    volumes:
+      - /Volumes/PostSQL_NC:/var/lib/postgresql/data
+      - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - POSTGRES_PASSWORD= 12345aA
+      - POSTGRES_USER= NEXTCLOUD
+      - POSTGRES_DB = NCLOUD
+
+    #  - POSTGRES_DB_FILE=/run/secrets/postgres_db
+    #  - POSTGRES_USER_FILE=/run/secrets/postgres_user
+    #  - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+    #secrets:
+    #  - postgres_db
+    #  - postgres_password
+    #  - postgres_user
+
+  app:
+    image: nextcloud:latest
+    container_name: nextcloud_server
+    hostname: nc_srv_cloud
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - /Volumes/NextCloud:/var/www/html
+    environment:
+      - POSTGRES_HOST=postgresql_db
+      - POSTGRES_DB=NCLOUD
+      - POSTGRES_USER= NEXTCLOUD
+      - POSTGRES_PASSWORD= 12345aA
+      - NEXTCLOUD_ADMIN_PASSWORD= 12345aA
+      - NEXTCLOUD_ADMIN_USER= admin
+    depends_on:
+      - postgresql_db
+volumes:
+  postgresql_db:
+  nextcloud:
