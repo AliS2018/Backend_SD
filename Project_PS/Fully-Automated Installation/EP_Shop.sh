@@ -33,6 +33,8 @@ echo "Run remove_cache.sh to enable administrative capabilities for your site"
 sleep 6
       echo "Setup Complete!"
       sleep 2
+      echo "Granting execution permission to remove_cache.sh"
+      chmod +x remove_cache.sh
       echo "Exitting..." 
         sleep 4
 exit 0
