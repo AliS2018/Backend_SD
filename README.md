@@ -1,4 +1,5 @@
-# Script_Installer
+# Backend Software Deployer or BSD 
+*Original Name Script_Installer*
 
 I think I'm overcomplicating the installation process but:
 to run the script smoothly clone the repository to the ~/ path,
@@ -14,10 +15,14 @@ RUN THE SCRIPT AS ROOT, either by running sudo or just using the root account
 To execute the script just type ./DockInStation.sh or sudo ./DockInStation.sh
 
 # Project_PS
+
 ----
-**As mentioned: PS stands for Prestashop**
-Fully Automated Installation (FAI): Will create containers to hold all the necessary data for prestashop to work
-Manual Installation: Will create directories and folders and dbs directly on your HDD
+
+As mentioned: PS stands for Prestashop
+
+> Fully Automated Installation (FAI): Will create containers to hold all the necessary data for prestashop to work
+> Manual Installation: Will create directories and folders and dbs directly on your HDD
+
 ----
 # FAI Contents:
  > PS_Start.sh: Main script, starts all the installation process
