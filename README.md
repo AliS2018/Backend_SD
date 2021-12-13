@@ -32,14 +32,16 @@ As mentioned: PS stands for Prestashop
 -----
  > prestashop.yml: configuration file for your prestashop and mysql database (contains all the db and ps path)
 ----
- > remove_cache.sh: changes to admin folder and install folder after installation of prestashop
+ > remove_cache.sh: deletes Install Folder and renames the admin folder, cleans up cache and useless data, tells you directly how to access the "back office"
  ----
 # MI Contents:
  > PrestaShop.sh: main script, it will install all the necessary dependencies, and prestashop main files.
+ -----
  > mycompose-mySQL.yml: docker compose configuration file that will create a mysql database for your site
+ -----
  > rm.sh: will remove php dependencies and modules if issues were to appear
-
 -----
+
 *Project_PS*
 -----
 database.yml working version of mysql database with it hyperlinks and stuff
