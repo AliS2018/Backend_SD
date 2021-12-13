@@ -21,14 +21,19 @@ To execute the script just type ./DockInStation.sh or sudo ./DockInStation.sh
 As mentioned: PS stands for Prestashop
 
 > Fully Automated Installation (FAI): Will create containers to hold all the necessary data for prestashop to work
+----
 > Manual Installation: Will create directories and folders and dbs directly on your HDD
 
 ----
 # FAI Contents:
  > PS_Start.sh: Main script, starts all the installation process
+ ----
  > EP_Shop.sh: installs docker-compose if doesn't exist and enable the following configuration file
+-----
  > prestashop.yml: configuration file for your prestashop and mysql database (contains all the db and ps path)
+----
  > remove_cache.sh: changes to admin folder and install folder after installation of prestashop
+ ----
 # MI Contents:
  > PrestaShop.sh: main script, it will install all the necessary dependencies, and prestashop main files.
  > mycompose-mySQL.yml: docker compose configuration file that will create a mysql database for your site
