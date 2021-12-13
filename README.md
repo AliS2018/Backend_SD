@@ -1,5 +1,6 @@
-# Backend Software Deployer or BSD 
+# Backend Software Deployer or BSD (Not the OS, nor a license nor anything remote to Berkley!)
 *Original Name Script_Installer*
+
 
 I think I'm overcomplicating the installation process but:
 to run the script smoothly clone the repository to the ~/ path,
