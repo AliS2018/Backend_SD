@@ -1,4 +1,4 @@
-# Backend Software Deployer or BSD (Not the OS, nor a license nor anything remote to Berkley!)
+# Backend Software Deployer or BSD (Not the OS, nor a license nor anything remotely related to Berkley!)
 *Original Name Script_Installer*
 
 
