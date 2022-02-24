@@ -63,7 +63,7 @@ def MainModules(p_choice, p_extras):
     elif (p_choice == "PW" and p_extras == "Y"):
         print("Running Partial Installation (Web-only) Sequence")
         __partial_installation_web = ["apt install apache2 -y",
-                                      "apt install php7.4-common -y",
+                                      "apt install php8.0-common -y",
                                       "apt install graphviz aspell php8.0-pspell php8.0-curl php8.0-gd php8.0-intl php8.0-mysql php8.0-xml php8.0-ldap",
                                      ]
         OS_MCE(__partial_installation_web)
@@ -152,8 +152,8 @@ if __name__=='__main__':
         elif option == '4':
             DockerConfigurator()    
         elif option == '5':
-            SiteNameSetter(inkacola)
-            inkacola=input()
+            SiteNameSetter()
+            
         elif option == '0':
             exit()
         else:
