@@ -88,12 +88,6 @@ def SiteConfigurator():
 
     __moovable_sed = [  "echo 'Preparing Environment...'",
                         "git clone git://git.moodle.org/moodle.git",
-                        "cd moodle",
-                        "echo 'Building Moodle Branch...'",
-                        "git branch -a",
-                        "git branch --track MOODLE_39_STABLE origin/MOODLE_39_STABLE",
-                        "git checkout MOODLE_39_STABLE",
-                        "cd ../",
                         "echo 'Moving Branch to the Webroot...'",
                         "sleep 2",
                         "mv -v moodle /var/www/html/",
