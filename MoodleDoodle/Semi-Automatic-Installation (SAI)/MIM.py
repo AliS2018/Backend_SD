@@ -4,6 +4,7 @@ menu_options = {
     '2': 'Install Main Modules',
     '3': 'Site Configurator v1.0',
     '4': 'DB Configurator + Site Preparator 2',
+    '5': 'VirtualHosts Repairs',
     '0': 'Exit',
 }
 
@@ -111,6 +112,23 @@ def DockerConfigurator():
                "exit",
                "docker restart mysql_moodle",]
     OS_MCE(__run_file)
+def SiteNameSetter():
+    # opening the file in read mode
+    path = "/etc/apache2/sites-available/000-default.conf"
+    file = open(path, "r")
+    replacement = "DocumentRoot /var/www/html"
+    # using the for loop
+    for line in file:
+        line = line.strip()
+        changes = line.replace("/var/www/html/moodle")
+        replacement = replacement + changes + "\n"
+
+    file.close()
+    # opening the file in write mode
+    fout = open(path, "w")
+    fout.write(replacement)
+    fout.close()
+
 if __name__=='__main__':
     while(True):
         print_menu()
@@ -129,10 +147,13 @@ if __name__=='__main__':
             choice = input(("| C | for Complete, | PW | for Partial Web, | PDB | for Partial DB Installation or | X | to Abort the Installation: ")).upper()
             modules = input(("Type Y or N to install extra PHP modules for you Moodle: ")).upper()
             MainModules(choice, modules)
-        elif option == '4':
+        elif option == '3':
             SiteConfigurator()
-        elif option == '5':
+        elif option == '4':
             DockerConfigurator()    
+        elif option == '5':
+            SiteNameSetter(inkacola)
+            inkacola=input()
         elif option == '0':
             exit()
         else:
