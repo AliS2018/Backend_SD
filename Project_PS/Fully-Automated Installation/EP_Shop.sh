@@ -18,7 +18,6 @@ chmod +x /usr/local/bin/docker-compose
 clear
 echo " << DONE >> "
 echo " Enabling Containers... "
-cd ~/
 docker-compose -f prestashop.yml up -d
 sleep 5
 echo "Container: prestashop_b1c0sl enabled... "

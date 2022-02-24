@@ -31,7 +31,5 @@ rm -rf /Volumes/PRESTADB
 echo ">> DONE <<"
 sleep 1
 
-cd ~/
-chmod +x EP_Shop.sh
+chmod +x ./EP_Shop.sh
 ./EP_Shop.sh
-
