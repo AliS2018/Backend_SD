@@ -1,0 +1,40 @@
+version: "2.1"
+services:
+  snipe-it:
+    image: lscr.io/linuxserver/snipe-it
+    container_name: snipe-it
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - APP_URL=<IP-DEL-SERVIDOR>
+      - MYSQL_PORT_3306_TCP_ADDR=<IP-DE-MYSQL>
+      - MYSQL_PORT_3306_TCP_PORT=3306
+      - MYSQL_DATABASE=snipe-it
+      - MYSQL_USER=snipeit
+      - MYSQL_PASSWORD=changeme
+      - TZ=Europe/Madrid
+    volumes:
+      - /volumes/snipe-it/config:/config
+    ports:
+      - 8080:80
+    restart: always
+  mysql:
+    image: mysql:8.0
+    container_name: SNIPE-DB
+    hostname: SNIPE-DB
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=snipeitroot
+      - MYSQL_DATABASE=snipe-it
+      - MYSQL_USER=snipeit
+      - MYSQL_PASSWORD=changeme
+    command: --innodb_log_file_size=16M --join_buffer_size=1M --tmp_table_size=128M --max_heap_table_> 
+    volumes:
+      - /volumes/SnipeIT/db:/var/lib/mysql
+      - /volumes/SnipeIT/db_conf:/etc/my.cnf
+      - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    network_mode: "host"
+
