@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+#  postgresql:
+#    image: postgres:latest
+#    container_name: DB_POSTG_INTRANET
+#    hostname: POSTGRES_OCRS
+#    restart: always
+#    ports:
+#      - 5432:5432
+#    environment:
+#      - POSTGRES_PASSWORD=owncloud
+#      - DB_USER=ocmginternal
+#      - DB_PASS=12345aA
+#      - DB_NAME=owncloud_db
+#    volumes:
+#      - /Volumes/OwnCloudSF/DB_POST:/var/lib/postgresql/data/
+#      - /Volumes/OwnCloudSF/iniDB:/docker-entrypoint-initdb.d
+#    network_mode: "host"
+
+  owncloud:
+    image: owncloud/server:latest
+    container_name: OC_SRV_INTRANET
+    hostname: OCSRVINT
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - /Volumes/OwnCloudSF/OC_USERDATA:/mnt/data
+      - /Volumes/OwnCloudSF/Libraries:/var/lib/owncloud
+    environment:
+      - OWNCLOUD_ADMIN_USERNAME=sysadmin
+      - OWNCLOUD_ADMIN_PASSWORD=admin12345
+     # - DEBUG= false
+     # - OWNCLOUD_DB_TYPE=pgsql
+     # - OWNCLOUD_DB_HOST=POSTGRES_OCRS
+     # - OWNCLOUD_DB_USER=ocmginternal
+     # - OWNCLOUD_DB_PASS=12345Aa
+     # - OWNCLOUD_DB_NAME=owncloud_db
+     # - OWNCLOUD_UPLOAD_MAX_FILESIZE=2G
+     # - OWNCLOUD_MAX_FILE_UPLOADS=20
+  #  depends_on:
+  #  - postgresql
+    network_mode: "host"

@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  prestashop:
+    image: prestashop/prestashop
+    container_name: prestashop_b1c0sl
+    hostname: pstashop
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PS_DEV_MODE=false 
+     # - PS_INSTALL_AUTO=0
+    volumes:
+      - /Volumes/PRESTADB/WFS/:/var/www/html
+    network_mode: "host"
+  mysql:
+    image: mysql:5.7.36
+    container_name: db_mysql_sdb
+    hostname: db_mysqlserver
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=prestashopid
+      - MYSQL_DATABASE=db_presta_main
+      - MYSQL_USER=prestoadmin
+      - MYSQL_PASSWORD=12345aA
+    volumes:
+      - /Volumes/PRESTADB/DB:/var/lib/mysql
+      - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    network_mode: "host"
