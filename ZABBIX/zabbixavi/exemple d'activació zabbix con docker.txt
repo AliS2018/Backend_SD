@@ -1,0 +1,74 @@
+http://blog.aeciopires.com/zabbix-docker/
+
+
+docker run -d --name mysql-zabbix \
+ --restart always \
+ -p 3306:3306 \
+ -v /docker/mysql/zabbix/data:/var/lib/mysql \
+ -e MYSQL_ROOT_HOST=172.18.0.1 \
+ -e MYSQL_ROOT_PASSWORD=12345aA. \
+ -e MYSQL_DATABASE=zabbix \
+ -e MYSQL_USER=zabbix \
+ -e MYSQL_PASSWORD=zabbix \
+ mysql:5.7
+
+docker logs -f mysql-zabbix
+
+
+docker run -d --name zabbix-server \
+ --restart always \
+ -p 10051:10051 \
+ -e MYSQL_ROOT_PASSWORD="12345aA." \
+ -e DB_SERVER_HOST="172.18.0.1" \
+ -e DB_SERVER_PORT="3306" \
+ -e MYSQL_USER="zabbix" \
+ -e MYSQL_PASSWORD="zabbix" \
+ -e MYSQL_DATABASE="zabbix" \
+zabbix/zabbix-server-mysql:ubuntu-4.2-latest
+
+docker logs -f zabbix-server
+
+docker run -d --name zabbix-web \
+ --restart always \
+ -p 80:80 \
+ -e DB_SERVER_HOST="172.18.0.1" \
+ -e DB_SERVER_PORT="3306" \
+ -e MYSQL_USER="zabbix" \
+ -e MYSQL_PASSWORD="zabbix" \
+ -e MYSQL_DATABASE="zabbix" \
+ -e ZBX_SERVER_HOST="172.18.0.1" \
+ -e PHP_TZ="Europe/Madrid" \
+ zabbix/zabbix-web-apache-mysql:ubuntu-4.2-latest
+
+docker logs -f zabbix-web
+
+docker run -d --name zabbix-web \
+ --restart always \
+ -p 80:80 -p 443:443 \
+ -v /docker/zabbix/ssl/file_certificado.crt:/etc/ssl/apache2/ssl.crt \
+ -v /docker/zabbix/ssl/file_certificado.key:/etc/ssl/apache2/ssl.key \
+ -e DB_SERVER_HOST="172.18.0.1" \
+ -e DB_SERVER_PORT="3306" \
+ -e MYSQL_USER="zabbix" \
+ -e MYSQL_PASSWORD="zabbix" \
+ -e MYSQL_DATABASE="zabbix" \
+ -e ZBX_SERVER_HOST="172.18.0.2" \
+ -e PHP_TZ="Europe/Madrid" \
+ zabbix/zabbix-web-apache-mysql:ubuntu-4.2-latest
+
+docker logs -f zabbix-web
+
+docker run -d --name zabbix-agent \
+ --net=host \
+ --hostname "$(hostname)" \
+ --privileged \
+ -v /:/rootfs \
+ -v /var/run:/var/run \
+ --restart always \
+ -p 10050:10050 \
+ -e ZBX_HOSTNAME="$(hostname)" \
+ -e ZBX_SERVER_HOST="172.18.0.3" \
+ zabbix/zabbix-agent:ubuntu-4.2-latest
+
+docker logs -f zabbix-agent
+

@@ -1,0 +1,20 @@
+Zabbix ==> User: admin
+           psw:  zabbix
+
+
+Grafana == User: admin
+           psw:  12345aA  (configurable inicialment en el fitxer dockercompose.yml)
+
+
+pas1: modificar password Zabbix
+pas2: modificar password Grafana
+pas3: activar plugin 'zabbix' mitjançant menu plugins de Grafana
+pas4: configurar plugin 'zabbix' amb menu 'Settings'
+     HTTP => 
+        url: http://172.17.9.52/api_jsonrpc.php
+
+     Zabbix API details => 
+        Username: admin
+        Password: 'zabbix' o el modificat
+pas5: prémer polsador 'Save & Test'
+      

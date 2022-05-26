@@ -1,0 +1,15 @@
+FROM zabbix/zabbix-server-mysql:ubuntu-4.4-latest
+USER root
+ARG TZ
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends dnsutils \
+                                               apt-utils \
+                                               tzdata && \
+    rm -rf /var/lib/apt/lists/*
+ 
+#COPY ./fitxers/start.sh /root/
+#RUN chmod 700 /root/start.sh
+#CMD ["/root/start.sh"]

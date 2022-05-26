@@ -1,0 +1,141 @@
+version: "2"
+services:
+  zabbix_mysql:
+     image: mysql:5.7
+     container_name: zabbix-mysql
+     hostname: zabbix-mysql
+     restart: always
+     ports:
+        - "3306:3306"
+     environment:
+        - MYSQL_ROOT_HOST=192.168.201.1
+        - MYSQL_ROOT_PASSWORD=12345aA.
+        - MYSQL_DATABASE=zabbix
+        - MYSQL_USER=zabbix
+        - MYSQL_PASSWORD=zabbix
+        - TZ=Europe/Madrid
+     volumes:
+        - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime
+        - /etc/timezone:/etc/timezone
+        - /docker/mysql/zabbix/data:/var/lib/mysql:rw
+     networks:
+        xarxa:
+           ipv4_address: 192.168.201.2
+
+
+  zabbix_server:
+     #image: zabbix/zabbix-server-mysql:ubuntu-4.4-latest
+     build:
+        context: ./zabbix-server-4.4-tzdata
+        dockerfile: Df-zabbix-server-4.4-tzdata
+        args:
+           - TZ=Europe/Madrid
+     container_name: zabbix-server
+     hostname: zabbix-server
+     restart: always
+     ports:
+        - "10051:10051"
+     environment:
+        - MYSQL_ROOT_PASSWORD=12345aA.
+        - DB_SERVER_HOST=192.168.201.1
+        - DB_SERVER_PORT=3306
+        - MYSQL_USER=zabbix
+        - MYSQL_PASSWORD=zabbix
+        - MYSQL_DATABASE=zabbix
+        - TZ=Europe/Madrid
+     volumes:
+        - /docker/zabbix/externalscripts:/usr/lib/zabbix/externalscripts
+        - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime
+        - /etc/timezone:/etc/timezone
+     depends_on:
+        - zabbix_mysql
+     networks:
+        xarxa:
+           ipv4_address: 192.168.201.3
+
+
+  zabbix_web:
+     image: zabbix/zabbix-web-apache-mysql:ubuntu-4.4-latest
+     container_name: zabbix-web
+     hostname: zabbix-web
+     restart: always
+     ports:
+        - "80:8080"
+     environment:
+        - DB_SERVER_HOST=192.168.201.1
+        - DB_SERVER_PORT=3306
+        - MYSQL_USER=zabbix
+        - MYSQL_PASSWORD=zabbix
+        - MYSQL_DATABASE=zabbix
+        - ZBX_SERVER_HOST=192.168.201.1
+        - PHP_TZ=Europe/Madrid
+     volumes:
+        - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime
+        - /etc/timezone:/etc/timezone
+     depends_on:
+        - zabbix_server
+     networks:
+        xarxa:
+           ipv4_address: 192.168.201.4
+
+
+  zabbix_agent:
+     image: zabbix/zabbix-agent:ubuntu-4.4-latest
+     container_name: zabbix-agent
+     hostname: zabbix-agent
+     restart: always
+     privileged: true
+     ports:
+        - "10050:10050"
+     environment:
+        - ZBX_HOSTNAME=server-zabbix
+        - ZBX_SERVER_HOST=192.168.201.3
+     volumes:
+        - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime
+        - /etc/timezone:/etc/timezone
+        - /:/rootfs
+        - /var/run:/var/run
+     depends_on:
+        - zabbix_server
+     network_mode: "host"
+
+
+  grafana:
+#     image:  grafana/grafana:5.4.3
+#     image:  grafana/grafana:6.2.2
+#     image:  grafana/grafana:6.5.0
+     image:  grafana/grafana:7.5.4
+     container_name: grafana
+     hostname: grafana
+     restart: always
+     privileged: true
+     user: root
+     ports:
+        - "3000:3000"
+     environment:
+        - TZ=Europe/Madrid
+        - GF_SERVER_ROOT_URL=http://grafana.s2sx.sds
+        - GF_SECURITY_ADMIN_PASSWORD=12345aA
+        - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource,alexanderzobnin-zabbix-app
+     volumes:
+        - /usr/share/zoneinfo/Europe/Madrid:/etc/localtime
+        - /etc/timezone:/etc/timezone
+        - /docker/grafana/var/lib/grafana:/var/lib/grafana
+     depends_on:
+        - zabbix_server
+     networks:
+        xarxa:
+           ipv4_address: 192.168.201.5
+
+
+networks:
+  xarxa:
+    driver: bridge
+#    driver: macvlan
+#    driver_opts:
+#      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.201.0/24
+          gateway: 192.168.201.1
+
